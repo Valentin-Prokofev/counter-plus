@@ -13,7 +13,7 @@ export const Input = (props: PropsType) => {
         props.onChange(e.currentTarget.value)
     }
 
-    const className = `${props.error ? "input_error" + " input" : "input"}`
+    const className = `${props.error ? "input_error input" : "input"}`
 
     return (
         <div>
