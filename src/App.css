@@ -1,38 +1,146 @@
 .App {
-  text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #000;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.window1 {
+    width: 500px;
+    height: 250px;
+    border: blue 1px solid;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.window_input1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.window2 {
+    width: 500px;
+    height: 250px;
+    border: blue 1px solid;
+    border-radius: 20px;
+    background-color: #750a81;
 }
 
-.App-link {
-  color: #61dafb;
+.window2_title1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 140px;
+    margin: 15px;
+    border: blue 1px solid;
+    border-radius: 20px;
+    background-color: #842c8f;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.window2_title2 {
+    min-height: 140px;
+    margin: 15px;
+    text-align: center;
+    border: blue 1px solid;
+    border-radius: 20px;
+    background-color: #842c8f;
 }
+
+.span_title {
+    padding-top: 35px;
+    font-size: 50px;
+}
+
+.window2_button {
+    min-height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    border: blue 1px solid;
+    border-radius: 20px;
+    background-color: #842c8f;
+}
+
+.button {
+    display: inline-block;
+    padding: 7px 15px;
+    background-color: #750a81;
+    border: none;
+    border-radius: 10px;
+    color: chartreuse;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #640d72;
+}
+
+.button:active {
+    background-color: #2f0531;
+}
+
+.button_disabled{
+    background-color: #b44dc4;
+    color: #b8fc7f;
+    display: inline-block;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.button_disabled:hover {
+    background-color: #b44dc4;
+    color: #b8fc7f;
+    display: inline-block;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+
+.span {
+    margin-right: 20px;
+    color: #e8e800;
+    font-size: 30px;
+    /*text-transform: uppercase;*/
+}
+
+.input {
+    font-size: 20px;
+    text-align: center;
+}
+
+.span_title_text {
+    padding-top: 35px;
+    font-size: 25px;
+    color: #37d00d;
+}
+
+.input_error {
+    font-size: 20px;
+    text-align: center;
+    /*color: red;*/
+    background-color: red;
+}
+
+.span_title_text_error {
+    padding-top: 35px;
+    font-size: 35px;
+    color: red;
+}
+
+
+
+
