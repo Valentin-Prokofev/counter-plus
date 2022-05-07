@@ -3,69 +3,83 @@ import './App.css';
 import {Button} from "./components/Button";
 import {Input} from "./components/Input";
 import {Display} from "./components/Display";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "./state/store";
+import {
+    changeErrorAC,
+    incCounterValueAC,
+    pressSetChangeAC,
+    resetCounterValueAC,
+    setValueAC
+} from "./state/counterReducer";
+import {changeStartValueAC} from "./state/counterReducer";
+import {changeMaxValueAC} from "./state/counterReducer";
 
 
 function App() {
-    let [startValue, setStartValue] = useState(0)
-    let [maxValue, setMaxValue] = useState(4)
-    let [currentValue, setCurrentValue] = useState(0)
-    let [pressSet, setPressSet] = useState(false)
-    let [error, setError] = useState(false)
 
-    useEffect(() => {
-        let maxValueAsString = localStorage.getItem("maxValue")
-        if (maxValueAsString) {
-            setMaxValue(JSON.parse(maxValueAsString))
-        }
+    let currentValue = useSelector<AppStateType, number>(state=>state.counter.currentValue)
+    let startValue = useSelector<AppStateType, number>(state=>state.counter.startValue)
+    let maxValue = useSelector<AppStateType, number>(state=>state.counter.maxValue)
+    let pressSet = useSelector<AppStateType, boolean>(state=>state.counter.pressSet)
+    let error = useSelector<AppStateType, boolean>(state=>state.counter.error)
 
-        let startValueAsString = localStorage.getItem("startValue")
-        if (startValueAsString) {
-            setStartValue(JSON.parse(startValueAsString))
-        }
+    const dispatch = useDispatch()
 
-    }, [])
+    // useEffect(() => {
+    //     let maxValueAsString = localStorage.getItem("maxValue")
+    //     if (maxValueAsString) {
+    //         // setMaxValue(JSON.parse(maxValueAsString))
+    //         // dispatch(changeMaxValueAC(JSON.parse(maxValueAsString)))
+    //     }
+    //
+    //     let startValueAsString = localStorage.getItem("startValue")
+    //     if (startValueAsString) {
+    //         // setStartValue(JSON.parse(startValueAsString))
+    //         // dispatch(changeStartValueAC(JSON.parse(startValueAsString)))
+    //     }
+    //
+    // }, [])
 
     useEffect(() => {
         if ((maxValue < 0 || startValue < 0) || maxValue <= startValue) {
-            setError(true)
+            dispatch(changeErrorAC(true))
         } else if ((maxValue > 0 || startValue > 0) || maxValue >= startValue) {
-            setError(false)
-            setPressSet(true)
+            dispatch(changeErrorAC(false))
+            dispatch(pressSetChangeAC(true))
         }
-        localStorage.setItem("maxValue", JSON.stringify(maxValue))
-        localStorage.setItem("startValue", JSON.stringify(startValue))
+        // localStorage.setItem("maxValue", JSON.stringify(maxValue))
+        // localStorage.setItem("startValue", JSON.stringify(startValue))
     }, [maxValue, startValue])
 
     const incrementHandler = () => {
-        setCurrentValue(currentValue = currentValue + 1)
+        dispatch(incCounterValueAC())
     }
 
     const resetHandler = () => {
-        setCurrentValue(startValue)
+        dispatch(resetCounterValueAC(startValue))
     }
 
     const changeNumberMaxValue = (value: string) => {
-        setMaxValue(+value)
+        dispatch(changeMaxValueAC(+value))
     }
 
     const changeNumberStartValue = (value: string) => {
-        setStartValue(+value)
+        dispatch(changeStartValueAC(+value))
     }
 
     const settingValue = () => {
         currentValue = startValue
-        setCurrentValue(currentValue)
-        setPressSet(false)
+        dispatch(setValueAC(currentValue))
+        dispatch(pressSetChangeAC(false))
     }
-
-    console.log(error)
 
     return (
         <div className="App">
             <div className={"window2"}>
                 <div className={"window2_title1"}>
                     <div className={"window_input1"}>
-                        <span className={"span"}>Max value  </span>
+                        <span className={"span"}>Max value</span>
                         <Input type="number"
                                value={maxValue}
                                onChange={changeNumberMaxValue}
@@ -85,7 +99,7 @@ function App() {
                     <Button
                         name={"set"}
                         callback={settingValue}
-                        isDisabled={error}
+                        isDisabled={error || !pressSet}
                     />
                 </div>
             </div>
@@ -93,7 +107,8 @@ function App() {
                 <Display
                     error={error}
                     currentValue={currentValue}
-                    pressSet={pressSet}/>
+                    pressSet={pressSet}
+                />
                 <div className={"window2_button"}>
                     <Button name={"inc"}
                             callback={incrementHandler}
